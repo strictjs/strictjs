@@ -1,21 +1,30 @@
 var strictjs = require("../server")()
 var jwt = require("jsonwebtoken")
 
-strictjs.strategy("JwtAuth", (req, res,callback) => {
-    const token = req.headers.authorization;
-    jwt.verify(token,"secret_key",function (err,decode) {
-      if(decode){
-        console.log(decode)
-        callback(decode)
-      }
-    })
+strictjs.strategy("JwtAuth", (req, res) => {
+  const token = req.headers.authorization;
+  var user = null
+  jwt.verify(token, "secret_key", function (err, decode) {
+    user = decode
+  })
+  return user
 
 })
+
+strictjs.before((req,res,next) => {
+  console.log("before calling http")
+  next()
+})
+strictjs.after(() => {
+  console.log("after calling http")
+})
+
+
 
 strictjs.get({
   path: "/login",
   handler: function (req, res) {
-   var criteriaForJwt = {
+    var criteriaForJwt = {
       userID: "abc",
       role: "xyz",
       sessionID: "qwerty",
