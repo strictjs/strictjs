@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsonwebtoken": "^8.1.0",
     "path": "^0.12.7",
     "qs": "^6.1.0",
+    "save": "^2.3.2",
     "url": "^0.11.0"
   }
 }
