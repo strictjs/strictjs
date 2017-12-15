@@ -1,4 +1,11 @@
-var strictjs = require("../server")()
+var strictjs = require("../server")({
+  protocol : "http",
+  port : 3001,
+  name : "sample_server",
+  host : "0.0.0.0"
+
+
+})
 var jwt = require("jsonwebtoken")
 
 strictjs.strategy("JwtAuth", (req, res) => {
@@ -44,29 +51,29 @@ strictjs.get({
   handler: function (req, res) {
     res.json({"success": "ok"})
   },
-  auth: "JwtAuth"
+  //auth: "JwtAuth"
 })
-strictjs.post({
-  path: "/names",
-  handler: function (req, res) {
-    res.json({"success": "ok"})
-  },
-  auth: "JwtAuth"
-})
-strictjs.put({
-  path: "/names",
-  handler: function (req, res) {
-    res.json({"success": "ok"})
-  },
-  auth: "JwtAuth"
-})
-strictjs.delete({
-  path: "/names",
-  handler: function (req, res) {
-    res.json({"success": "ok"})
-  },
-  auth: "JwtAuth"
-})
+// strictjs.post({
+//   path: "/names",
+//   handler: function (req, res) {
+//     res.json({"success": "ok"})
+//   },
+//   auth: "JwtAuth"
+// })
+// strictjs.put({
+//   path: "/names",
+//   handler: function (req, res) {
+//     res.json({"success": "ok"})
+//   },
+//   auth: "JwtAuth"
+// })
+// strictjs.delete({
+//   path: "/names",
+//   handler: function (req, res) {
+//     res.json({"success": "ok"})
+//   },
+//   auth: "JwtAuth"
+// })
 
 
-strictjs.listen(3001)
+strictjs.start()
