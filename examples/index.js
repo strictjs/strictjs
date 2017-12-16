@@ -1,10 +1,13 @@
+// var fs = require('fs')
 var strictjs = require("../server")({
   protocol : "http",
   port : 3001,
   name : "sample_server",
-  host : "0.0.0.0"
-
-
+  host : "0.0.0.0",
+  // tls: {
+  //   key: fs.readFileSync(__dirname + '/../../Certs/key.pem'),
+  //   cert: fs.readFileSync(__dirname + '/../../Certs/cert.pem'),
+  // }
 })
 var jwt = require("jsonwebtoken")
 
