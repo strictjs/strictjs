@@ -1,3 +1,5 @@
+
+
 var strictjs = require("../server")({
   protocol : "http",
   port : 3001,
@@ -6,6 +8,8 @@ var strictjs = require("../server")({
 
 
 })
+var joi = require("joi")
+
 var jwt = require("jsonwebtoken")
 
 strictjs.strategy("JwtAuth", (req, res) => {
@@ -19,11 +23,11 @@ strictjs.strategy("JwtAuth", (req, res) => {
 })
 
 strictjs.before((req,res,next) => {
-  console.log("before calling http")
+  // console.log("before calling http")
   next()
 })
 strictjs.after(() => {
-  console.log("after calling http")
+  // console.log("after calling http")
 })
 
 
@@ -46,11 +50,31 @@ strictjs.get({
 })
 
 
-strictjs.get({
+
+strictjs.post({
   path: "/names",
   handler: function (req, res) {
+    console.log(req.body.name)
     res.json({"success": "ok"})
   },
+  failOver : function (req,res,error) {
+    // error = {error: e.name, message: e.details[0].message}
+    res.json({name : "sham"})
+
+  },
+  validation:{
+      body :{
+        name : joi.string()
+      },
+
+      // params :{
+      //
+      // },
+      // headers :{
+      //
+      // }
+
+  }
   //auth: "JwtAuth"
 })
 // strictjs.post({
