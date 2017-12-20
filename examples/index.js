@@ -51,11 +51,11 @@ strictjs.get({
 
 
 
-strictjs.post({
+strictjs.get({
   path: "/names",
   handler: function (req, res) {
-    console.log(req.body.name)
-    res.json({"success": "ok"})
+    console.log(req.query)
+    res.json({"success": "ok + /names"})
   },
   failOver : function (req,res,error) {
     // error = {error: e.name, message: e.details[0].message}
@@ -63,7 +63,33 @@ strictjs.post({
 
   },
   validation:{
-      body :{
+      query :{
+        name : joi.string()
+      },
+
+      // params :{
+      //
+      // },
+      // headers :{
+      //
+      // }
+
+  }
+  //auth: "JwtAuth"
+})
+strictjs.get({
+  path: "/names/login",
+  handler: function (req, res) {
+    console.log(req.query)
+    res.json({"success": "ok + /names/login"})
+  },
+  failOver : function (req,res,error) {
+    // error = {error: e.name, message: e.details[0].message}
+    res.json({name : "sham"})
+
+  },
+  validation:{
+      query :{
         name : joi.string()
       },
 
