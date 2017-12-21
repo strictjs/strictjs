@@ -1,6 +1,6 @@
 {
   "name": "strictjs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -14,7 +14,9 @@
     "url": "https://github.com/strictjs/strictjs"
   },
   "dependencies": {
+    "consul": "^0.30.0",
     "joi": "^13.0.2",
+    "jsonwebtoken": "^8.1.0",
     "path": "^0.12.7",
     "qs": "^6.1.0",
     "save": "^2.3.2",

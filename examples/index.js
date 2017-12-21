@@ -1,10 +1,11 @@
 
 
-var strictjs = require("../server")({
+var strictjs =  require("../server")({
   protocol : "http",
   port : 3001,
-  name : "sample_server",
-  host : "0.0.0.0"
+  name : "UserMicroservice",
+  host : "0.0.0.0",
+  com : true
 
 
 })
@@ -51,11 +52,13 @@ strictjs.get({
 
 
 
-strictjs.get({
+strictjs.post({
   path: "/names",
   handler: function (req, res) {
-    console.log(req.query)
+    console.log(typeof req.headers)
+    console.log(strictjs.address());
     res.json({"success": "ok + /names"})
+
   },
   failOver : function (req,res,error) {
     // error = {error: e.name, message: e.details[0].message}
@@ -63,7 +66,7 @@ strictjs.get({
 
   },
   validation:{
-      query :{
+      body :{
         name : joi.string()
       },
 
@@ -124,6 +127,14 @@ strictjs.get({
 //   },
 //   auth: "JwtAuth"
 // })
+
+strictjs.registerFunction("getUser", function (payload) {
+  console.log(payload)
+  return payload;
+})
+
+strictjs.executeRemote({fn : "getUser", payload : {name : "Rahul"}})
+
 
 
 strictjs.start()
