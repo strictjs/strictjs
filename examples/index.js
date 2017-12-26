@@ -12,12 +12,14 @@ var strictjs =  require("../server")(cfg)
 
 var com = strictjs.com(cfg)
 
-com.registerFunction("getUser", function (payload) {
-  return payload;
+com.registerFunction("getUser", function (payload,reply) {
+  reply.sendReply(payload)
 })
+
+
 com.start((name,port) =>{
   com.registerService(name,port,function () {
-    com.executeRemote("UserMicroservice",{fn : "getUse", payload : {name : "Rahul"}})
+    com.executeRemote("UserMicroservice",{fn : "getUser", payload : {name : "Rahul"}})
 
   })
 })
