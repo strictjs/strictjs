@@ -1,6 +1,5 @@
 
-
-var strictjs =  require("../server")({
+var cfg = {
   protocol : "http",
   port : 3001,
   name : "UserMicroservice",
@@ -8,6 +7,19 @@ var strictjs =  require("../server")({
   com : true
 
 
+}
+var strictjs =  require("../server")(cfg)
+
+var com = strictjs.com(cfg)
+
+com.registerFunction("getUser", function (payload) {
+  return payload;
+})
+com.start((name,port) =>{
+  com.registerService(name,port,function () {
+    com.executeRemote("UserMicroservice",{fn : "getUse", payload : {name : "Rahul"}})
+
+  })
 })
 var joi = require("joi")
 
@@ -128,12 +140,8 @@ strictjs.get({
 //   auth: "JwtAuth"
 // })
 
-strictjs.registerFunction("getUser", function (payload) {
-  console.log(payload)
-  return payload;
-})
 
-strictjs.executeRemote({fn : "getUser", payload : {name : "Rahul"}})
+
 
 
 
